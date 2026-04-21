@@ -24,13 +24,13 @@ Abaixo está a organização dos diretórios e arquivos:
 ```text
 .
 ├── pipes/
-│   ├── main.cpp
+│   ├── pros_cons_pipe.cpp
 │   └── Makefile
 ├── semaphore/
 │   ├── dados/            # Logs e medições brutas
 │   ├── graficos/         # Gráficos de tempo de execução
 │   ├── graficos_buffer/  # Gráficos de ocupação do buffer
-│   ├── main.cpp
+│   ├── pros_cons_sem.cpp
 │   ├── script.py         # Script de automação dos experimentos
 │   ├── teste.py          # Script de geração de gráficos
 │   └── Makefile
@@ -64,9 +64,14 @@ make run
 _Ou manualmente:_
 
 ```bash
-g++ -std=c++20 main.cpp -o programa
-./programa 1000
+g++ -std=c++20 pros_cons_pipe.cpp -o programa
+./programa 10
 ```
+
+obs: esse valor 10 pode ser qualquer um dentro desse requisito aqui.
+O programa produtor deve gerar números inteiros aleatórios e crescentes,
+da seguinte forma:
+Ni = Ni−1 + ∆, N0 = 1, ∆ ∈ [1, 100].
 
 ### 2. Implementação com Semáforos (Produtor-Consumidor)
 
@@ -77,15 +82,24 @@ cd semaphore
 make run
 ```
 
-_Para gerar apenas os gráficos após os dados coletados:_
+_Para compilar manualmente:_
 
 ```bash
-python3 teste.py
+g++ -std=c++20 pros_cons_sem.cpp -o programa
 ```
+
+_os script em python usam o "programa" para executar_
+
+```bash
+python3 txt_graph1.py graph2.py
+```
+
+Basicamente o script txt_grahp1.py ele executa cada estudo de caso 10x e calcula as médias e gera o gráfico tempo médio de execução em função do número de threads produtor/consumidor para cada valor de N. Já o graph2.py gera cada cenário, trace um gráfico representativo com a ocupação do
+buffer compartilhado ao longo do tempo.
 
 ---
 
-## 📈 Conclusão e Análise
+## Conclusão e Análise
 
 O trabalho compara o desempenho entre processos e threads, avaliando o impacto da sincronização e concorrência no tempo total de processamento. A análise detalhada dos resultados pode ser encontrada nos gráficos gerados nas pastas correspondentes.
 
