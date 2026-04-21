@@ -5,7 +5,7 @@
 
 ---
 
-## 📑 Visão Geral
+## Visão Geral
 
 Este repositório contém a implementação do Trabalho Prático 1 da disciplina de Sistemas Distribuídos. O projeto foca na comparação de mecanismos de comunicação e sincronização.
 
@@ -17,7 +17,7 @@ Este repositório contém a implementação do Trabalho Prático 1 da disciplina
 
 ---
 
-## 📂 Estrutura do Projeto
+## Estrutura do Projeto
 
 Abaixo está a organização dos diretórios e arquivos:
 
@@ -39,7 +39,7 @@ Abaixo está a organização dos diretórios e arquivos:
 
 ---
 
-## 🛠 Requisitos
+## Requisitos
 
 - **Compilador:** `g++` (suporte a C++20)
 - **Linguagem:** Python 3.x
@@ -50,7 +50,7 @@ Abaixo está a organização dos diretórios e arquivos:
 
 ---
 
-## 🚀 Como Executar
+## Como Executar
 
 ### 1. Implementação com Pipes
 
