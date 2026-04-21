@@ -1,60 +1,92 @@
 # Sistemas Distribuídos - TP01 (CEFET-MG 2026/1)
 
 **Professora:** Michelle Hanne  
-**Aluno:** Aira Winner
+**Aluno:** Aira Winner e Arthur Secundino
 
 ---
 
-# Visão Geral
+## 📑 Visão Geral
 
-Este repositório contém a implementação do Trabalho Prático 1 de Sistemas Distribuídos.
+Este repositório contém a implementação do Trabalho Prático 1 da disciplina de Sistemas Distribuídos. O projeto foca na comparação de mecanismos de comunicação e sincronização.
 
-## Conteúdo:
+### Tópicos Abordados:
 
-- Pipes (processos com fork + pipe)
-- Threads com semáforos
-- Experimentos de desempenho
-- Geração de gráficos em Python
-
----
-
-# Estrutura
-
-/pipes → implementação com processos  
- Makefile → automação
-/semaphore → implementação com threads  
- /dados → logs e medições  
- /graficos → gráficos de tempo  
- /graficos_buffer → gráficos de ocupação  
- script.py → execução dos experimentos  
- teste.py → geração dos gráficos  
- Makefile → automação
+- **Pipes:** Comunicação entre processos utilizando `fork()` e `pipe()`.
+- **Threads:** Sincronização de threads utilizando semáforos e mutexes.
+- **Análise:** Experimentos de desempenho e geração de gráficos comparativos.
 
 ---
 
-# Requisitos
+## 📂 Estrutura do Projeto
 
-- g++ (C++20)
-- Python 3
-- pip install matplotlib pandas numpy
+Abaixo está a organização dos diretórios e arquivos:
+
+```text
+.
+├── pipes/
+│   ├── main.cpp
+│   └── Makefile
+├── semaphore/
+│   ├── dados/            # Logs e medições brutas
+│   ├── graficos/         # Gráficos de tempo de execução
+│   ├── graficos_buffer/  # Gráficos de ocupação do buffer
+│   ├── main.cpp
+│   ├── script.py         # Script de automação dos experimentos
+│   ├── teste.py          # Script de geração de gráficos
+│   └── Makefile
+└── README.md
+```
 
 ---
 
-# Execução
+## 🛠 Requisitos
 
-## Pipes
+- **Compilador:** `g++` (suporte a C++20)
+- **Linguagem:** Python 3.x
+- **Bibliotecas Python:**
+  ```bash
+  pip install matplotlib pandas numpy
+  ```
 
+---
+
+## 🚀 Como Executar
+
+### 1. Implementação com Pipes
+
+Navegue até a pasta e execute o binário ou o comando via Makefile:
+
+```bash
+cd pipes
+make run
+```
+
+_Ou manualmente:_
+
+```bash
+g++ -std=c++20 main.cpp -o programa
 ./programa 1000
-ou
-make run
+```
 
-## Semaphores
+### 2. Implementação com Semáforos (Produtor-Consumidor)
 
+Navegue até a pasta para rodar os experimentos automatizados:
+
+```bash
+cd semaphore
 make run
+```
+
+_Para gerar apenas os gráficos após os dados coletados:_
+
+```bash
+python3 teste.py
+```
 
 ---
 
-# Conclusão
+## 📈 Conclusão e Análise
 
-O trabalho compara desempenho entre processos e threads,
-avaliando impacto de sincronização e concorrência.
+O trabalho compara o desempenho entre processos e threads, avaliando o impacto da sincronização e concorrência no tempo total de processamento. A análise detalhada dos resultados pode ser encontrada nos gráficos gerados nas pastas correspondentes.
+
+---
