@@ -20,7 +20,7 @@ os.makedirs("dados", exist_ok=True)
 
 results = []
 
-print("🚀 Iniciando experimentos...")
+print(" Iniciando experimentos...")
 print("Nota: O programa C++ já realiza as 10 rodadas internamente.\n")
 
 # ==============================
