@@ -82,13 +82,34 @@ cd semaphore
 make run
 ```
 
+Esse make run compile e roda o programa já salvando em txt cada caso, calcula média e os gráficos pedidos usando um script em python
+
 _Para compilar manualmente:_
 
 ```bash
-g++ -std=c++20 pros_cons_sem.cpp -o programa
+g++ -std=c++20 pro_con_sem.cpp -o programa
 ```
 
-_os script em python usam o "programa" para executar_
+Em que o uso é assim :
+
+./programa <N> <Np> <Nc>
+
+_ou seja:_
+
+```bash
+ ./programa 1 1 1
+```
+
+_então basta digitar de acordo com o que foi pedido :_
+
+Para o estudo de caso, considere que o programa termina sua execução
+após o consumidor processar M = 105 números. Considere ainda os valores
+N = 1, 10, 100, 1000, com os seguintes combinações de número de threads
+produtor/consumidor:
+
+(Np, Nc) ∈ {(1, 1), (1, 2), (1, 4), (1, 8), (2, 1), (4, 1), (8, 1)}.
+
+_ou use script em python usam o "programa" para executar_
 
 ```bash
 python3 txt_graph1.py graph2.py
