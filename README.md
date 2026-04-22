@@ -23,7 +23,7 @@ Abaixo está a organização dos diretórios e arquivos:
 
 ```text
 .
-├── pipes/
+├── pipe/
 │   ├── pros_cons_pipe.cpp
 │   └── Makefile
 ├── semaphore/
@@ -57,7 +57,7 @@ Abaixo está a organização dos diretórios e arquivos:
 Navegue até a pasta e execute o binário ou o comando via Makefile:
 
 ```bash
-cd pipes
+cd pipe
 make run
 ```
 
