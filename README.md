@@ -7,7 +7,7 @@
 
 ## Visão Geral
 
-Este repositório contém a implementação do Trabalho Prático 1 da disciplina de Sistemas Distribuídos. O projeto foca na comparação de mecanismos de comunicação e sincronização.
+Os dois códigos pedidos foram implementados em c++,porém caso da versão com semáforos e threads foi escolhido essa abordagem para facilitar a automação dos testes usando scripts em Python, já que seria necessário executar o programa várias vezes para coletar dados e gerar gráficos de desempenho. Essa escolha torna mais simples repetir experimentos com diferentes configurações e analisar métricas como tempo médio e ocupação do buffer. Já na versão com pipes, por ser uma implementação mais simples com processos, a principal decisão foi organizar melhor o código em módulos (produtor, consumidor, etc.) para deixar a leitura mais clara e estruturada. Por fim, a organização do projeto foi feita separando as duas abordagens em pastas distintas, cada uma com seu próprio Makefile, facilitando compilação, execução e manutenção do código.
 
 ### Tópicos Abordados:
 
