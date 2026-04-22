@@ -1,7 +1,6 @@
 import subprocess
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 import os
 import glob
 import shutil
@@ -13,106 +12,74 @@ EXECUTABLE = "./programa"
 
 Ns = [1, 10, 100, 1000]
 configs = [(1,1), (1,2), (1,4), (1,8), (2,1), (4,1), (8,1)]
-labels = list("abcdefg")
+labels = ["1P/1C", "1P/2C", "1P/4C", "1P/8C", "2P/1C", "4P/1C", "8P/1C"]
 
+# Garante que as pastas existam
 os.makedirs("graficos", exist_ok=True)
 os.makedirs("dados", exist_ok=True)
 
 results = []
 
-print(" Iniciando experimentos (10 execuções cada)...\n")
+print("🚀 Iniciando experimentos...")
+print("Nota: O programa C++ já realiza as 10 rodadas internamente.\n")
 
 # ==============================
-# EXECUÇÕES (10x por config)
+# EXECUÇÃO ÚNICA (O C++ já faz o loop de 10)
 # ==============================
-for N in Ns:
-    for i, (Np, Nc) in enumerate(configs):
+for i, (Np, Nc) in enumerate(configs):
+    for N in Ns:
+        print(f"Testando Config {labels[i]}: N={N}, Np={Np}, Nc={Nc}...", end=" ", flush=True)
 
-        print("====================================")
-        print(f"Configuração: N={N}, Np={Np}, Nc={Nc}")
-        print("------------------------------------")
+        # Chama o programa UMA vez para cada N/Config
+        process = subprocess.run(
+            [EXECUTABLE, str(N), str(Np), str(Nc)],
+            capture_output=True,
+            text=True
+        )
 
-        tempos = []
-
-        for run in range(10):
-            process = subprocess.run(
-                [EXECUTABLE, str(N), str(Np), str(Nc)],
-                capture_output=True,
-                text=True
-            )
-
-            try:
-                tempo = float(process.stdout.strip())
-                tempos.append(tempo)
-                print(f"Execução {run+1}: {tempo:.6f} s")
-            except:
-                print(f"Execução {run+1}: ERRO")
-
-        # salva os 10 tempos
-        filename = f"dados/tempos_N{N}_Np{Np}_Nc{Nc}.txt"
-        with open(filename, "w") as f:
-            for t in tempos:
-                f.write(f"{t}\n")
-
-        # média
-        if tempos:
-            media = np.mean(tempos)
-            print(f"\n➡ Média (10 execuções): {media:.6f} s")
-        else:
-            media = 0
-            print("\n➡ Falha ao calcular média")
-
-        print("\n")
-
-        results.append({
-            "N": N,
-            "config": labels[i],
-            "tempo_medio": media
-        })
+        try:
+            # O stdout do seu C++ é a média das 10 execuções
+            media = float(process.stdout.strip())
+            print(f"Média: {media:.6f}s")
+            
+            results.append({
+                "N": N,
+                "config_label": labels[i],
+                "tempo_medio": media
+            })
+        except:
+            print("ERRO na leitura do tempo")
 
 # ==============================
-# MOVER TODOS OS .TXT GERADOS PELO PROGRAMA
+# ORGANIZAÇÃO DOS ARQUIVOS .TXT
 # ==============================
-txt_files = glob.glob("*.txt")
-
+# Move os arquivos de ocupação gerados pelo C++ para a pasta /dados
+txt_files = glob.glob("ocupacao_N*.txt")
 for file in txt_files:
-    destino = os.path.join("dados", file)
-
-    if not os.path.exists(destino):
-        shutil.move(file, destino)
-    else:
-        base, ext = os.path.splitext(file)
-        i = 1
-        while os.path.exists(os.path.join("dados", f"{base}_{i}{ext}")):
-            i += 1
-        shutil.move(file, os.path.join("dados", f"{base}_{i}{ext}"))
+    shutil.move(file, os.path.join("dados", file))
 
 # ==============================
-# DATAFRAME FINAL
+# SALVAR DATAFRAME
 # ==============================
 df = pd.DataFrame(results)
 df.to_csv("dados/medias.csv", index=False)
 
 # ==============================
-# GRÁFICO FINAL (ÚNICO)
+# GRÁFICO FINAL
 # ==============================
-plt.figure(figsize=(10,6))
+plt.figure(figsize=(12, 7))
 
 for N in Ns:
     subset = df[df["N"] == N]
+    # O gráfico segue a ordem das labels definidas em configs
+    plt.plot(subset["config_label"], subset["tempo_medio"], marker='o', label=f"N={N}")
 
-    x = subset["config"]
-    y = subset["tempo_medio"]
-
-    plt.plot(x, y, marker='o', label=f"N={N}")
-
-plt.xlabel("Configurações (a=1P/1C, b=1P/2C, ...)")
-plt.ylabel("Tempo médio (s)")
-plt.title("Tempo médio vs Configurações (10 execuções)")
+plt.xlabel("Configurações (Produtores/Consumidores)")
+plt.ylabel("Tempo Médio de 10 Execuções (s)")
+plt.title("Desempenho: Tempo Médio vs Configuração de Threads")
 plt.legend()
-plt.grid()
+plt.grid(True, linestyle='--', alpha=0.7)
 
 plt.savefig("graficos/tempo_execucao.png")
-plt.show()
-
-print("✔ Tudo pronto: execuções impressas, .txt em /dados e gráfico gerado!")
+print("\n✔ Gráfico salvo em: graficos/tempo_execucao.png")
+print("✔ Dados salvos na pasta: /dados")
