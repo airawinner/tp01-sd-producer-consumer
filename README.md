@@ -90,11 +90,8 @@ _Para compilar manualmente:_
 g++ -std=c++20 pro_con_sem.cpp -o programa
 ```
 
-Em que o uso é assim :
-
-./programa <N> <Np> <Nc>
-
-_ou seja:_
+_Em que o uso é assim :_
+./programa N Np Nc
 
 ```bash
  ./programa 1 1 1
