@@ -7,7 +7,7 @@
 
 ## Visão Geral
 
-Os dois códigos pedidos foram implementados em c++,porém caso da versão com semáforos e threads foi escolhido essa abordagem para facilitar a automação dos testes usando scripts em Python, já que seria necessário executar o programa várias vezes para coletar dados e gerar gráficos de desempenho. Essa escolha torna mais simples repetir experimentos com diferentes configurações e analisar métricas como tempo médio e ocupação do buffer. Já na versão com pipes, por ser uma implementação mais simples com processos, a principal decisão foi organizar melhor o código em módulos (produtor, consumidor, etc.) para deixar a leitura mais clara e estruturada. Por fim, a organização do projeto foi feita separando as duas abordagens em pastas distintas, cada uma com seu próprio Makefile, facilitando compilação, execução e manutenção do código.
+Os dois códigos pedidos foram implementados em c++, porém no caso da versão com semáforos e threads foi escolhida essa abordagem para facilitar a automação dos testes usando scripts em Python, já que seria necessário executar o programa várias vezes para coletar dados e gerar gráficos de desempenho. Essa escolha torna mais simples repetir experimentos com diferentes configurações e analisar métricas como tempo médio e ocupação do buffer. Já na versão com pipes, por ser uma implementação mais simples com processos, a principal decisão foi organizar melhor o código em módulos (produtor, consumidor, etc.) para deixar a leitura mais clara e estruturada. Por fim, a organização do projeto foi feita separando as duas abordagens em pastas distintas, cada uma com seu próprio Makefile, facilitando compilação, execução e manutenção do código.
 
 ### Tópicos Abordados:
 
@@ -68,10 +68,9 @@ g++ -std=c++20 pros_cons_pipe.cpp -o programa
 ./programa 10
 ```
 
-obs: esse valor 10 pode ser qualquer um dentro desse requisito aqui.
-O programa produtor deve gerar números inteiros aleatórios e crescentes,
-da seguinte forma:
-Ni = Ni−1 + ∆, N0 = 1, ∆ ∈ [1, 100].
+obs: esse valor 10 corresponde à quantidade de números que o processo produtor
+deve gerar. Caso queira que sejam gerados mais ou menos números, basta mudar esse
+valor de acordo com a quantidade desejada.
 
 ### 2. Implementação com Semáforos (Produtor-Consumidor)
 
@@ -82,7 +81,7 @@ cd semaphore
 make run
 ```
 
-Esse make run compile e roda o programa já salvando em txt cada caso, calcula média e os gráficos pedidos usando um script em python
+Esse make run compila e roda o programa já salvando em txt cada caso, calcula média e os gráficos pedidos usando um script em python.
 
 _Para compilar manualmente:_
 
@@ -90,14 +89,14 @@ _Para compilar manualmente:_
 g++ -std=c++20 pro_con_sem.cpp -o programa
 ```
 
-_Em que o uso é assim :_
+_Em que o uso é assim:_
 ./programa N Np Nc
 
 ```bash
  ./programa 1 1 1
 ```
 
-_então basta digitar de acordo com o que foi pedido :_
+_então basta digitar de acordo com o que foi pedido:_
 
 Para o estudo de caso, considere que o programa termina sua execução
 após o consumidor processar M = 105 números. Considere ainda os valores
@@ -112,7 +111,7 @@ _ou use script em python usam o "programa" para executar_
 python3 txt_graph1.py graph2.py
 ```
 
-Basicamente o script txt_grahp1.py ele executa cada estudo de caso 10x e calcula as médias e gera o gráfico tempo médio de execução em função do número de threads produtor/consumidor para cada valor de N. Já o graph2.py gera cada cenário, trace um gráfico representativo com a ocupação do
+Basicamente, o script txt_grahp1.py executa cada estudo de caso 10x, calcula as médias e gera o gráfico de tempo médio de execução em função do número de threads produtor/consumidor para cada valor de N. Já o graph2.py gera cada cenário e traça um gráfico representativo com a ocupação do
 buffer compartilhado ao longo do tempo.
 
 ---
